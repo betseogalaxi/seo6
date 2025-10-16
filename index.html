@@ -23,32 +23,77 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     :root {
-      --bg-start:#000;--bg-end:#1a1a1a;
-      --gold-1:#ffcc4d;--gold-2:#e0b23a;
-      --card-bg:rgba(255,215,0,0.05);--card-hover:rgba(255,215,0,0.1);
-      --card-border:rgba(255,215,0,0.18);--glow:rgba(255,215,0,0.25);
+      --gold-1:#ffcc4d; 
+      --gold-2:#e0b23a;
+      --card-bg:rgba(255,215,0,0.04);
+      --card-hover:rgba(255,215,0,0.08);
+      --card-border:rgba(255,215,0,0.18);
+      --glow:rgba(255,215,0,0.25);
     }
-    html,body{
-      margin:0;height:100%;color:#f5f5f5;
-      background:radial-gradient(circle at 30% 30%,rgba(255,215,0,0.05)0%,#000 90%);
-      font-family:Inter,system-ui,sans-serif;
-      scroll-behavior:smooth;-webkit-font-smoothing:antialiased;
+
+    html, body {
+      margin: 0;
+      height: 100%;
+      color: #f5f5f5;
+      font-family: Inter, system-ui, sans-serif;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      background:
+        radial-gradient(
+          circle at 30% 20%,
+          rgba(255,215,0,0.03) 0%,
+          rgba(20,20,20,0.9) 40%,
+          #000 90%
+        );
+      position: relative;
+      min-height: 100vh;
+      z-index: 0;
     }
-    .glass{background:var(--card-bg);border:1px solid var(--card-border);backdrop-filter:blur(8px);transition:.3s;}
-    .glass:hover{background:var(--card-hover);border-color:var(--gold-1);}
-    .btn-gold{background:linear-gradient(90deg,var(--gold-1),var(--gold-2));color:#111;font-weight:800;box-shadow:0 0 25px var(--glow);transition:.3s;}
-    .btn-gold:hover{transform:translateY(-3px)scale(1.03);filter:brightness(1.1);}
-    .accent-underline::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:5px;background:linear-gradient(90deg,var(--gold-1),var(--gold-2));border-radius:8px;filter:blur(6px);}
-    .stars,.stars2,.stars3{position:absolute;inset:0;background-repeat:repeat;z-index:0;pointer-events:none;}
-    .stars{background-image:radial-gradient(rgba(255,255,255,0.05)1px,transparent 1px);background-size:40px 40px;animation:drift 80s linear infinite;}
-    .stars2{background-image:radial-gradient(rgba(255,255,255,0.03)1px,transparent 1px);background-size:80px 80px;animation:drift 120s linear infinite reverse;}
-    .stars3{background-image:radial-gradient(rgba(255,255,255,0.02)1px,transparent 1px);background-size:160px 160px;animation:drift 200s linear infinite;}
-    @keyframes drift{from{transform:translateY(0);}to{transform:translateY(-200px);}}
-    .reveal{opacity:0;transform:translateY(15px);transition:.7s;}
-    .reveal.show{opacity:1;transform:translateY(0);}
+
+    /* soft secondary glow for subtle galaxy effect */
+    html::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 70% 80%, rgba(255,215,0,0.02), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Star layers (fixed for all site sections) */
+    .stars, .stars2, .stars3 {
+      position: fixed;
+      inset: 0;
+      background-repeat: repeat;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .stars  { background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 40px 40px; animation: drift 80s linear infinite; }
+    .stars2 { background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 80px 80px; animation: drift 120s linear infinite reverse; }
+    .stars3 { background-image: radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 160px 160px; animation: drift 200s linear infinite; }
+
+    @keyframes drift { from { transform: translateY(0); } to { transform: translateY(-200px); } }
+
+    .glass { background: var(--card-bg); border: 1px solid var(--card-border); backdrop-filter: blur(8px); transition: .3s; }
+    .glass:hover { background: var(--card-hover); border-color: var(--gold-1); }
+    .btn-gold { background: linear-gradient(90deg, var(--gold-1), var(--gold-2)); color: #111; font-weight: 800; box-shadow: 0 0 25px var(--glow); transition: .3s; }
+    .btn-gold:hover { transform: translateY(-3px) scale(1.03); filter: brightness(1.1); }
+    .accent-underline::after { content:""; position:absolute; left:0; right:0; bottom:-6px; height:5px; background:linear-gradient(90deg,var(--gold-1),var(--gold-2)); border-radius:8px; filter:blur(6px); }
+    .reveal { opacity:0; transform:translateY(15px); transition:.7s; }
+    .reveal.show { opacity:1; transform:translateY(0); }
   </style>
 </head>
 <body class="overflow-x-hidden">
+
+  <!-- Fixed background stars -->
+  <div class="stars"></div>
+  <div class="stars2"></div>
+  <div class="stars3"></div>
+
+</body>
+</html>
+
 
 <!-- Header -->
 <header class="sticky top-0 z-40 py-4 bg-black/70 backdrop-blur-md border-b border-gold/10">
@@ -137,243 +182,172 @@ document.getElementById('menu-toggle').addEventListener('click',()=>document.get
   </div>
 </section>
 
-<!-- HİZMETLER -->
-<section id="hizmetler" class="relative py-24 bg-gradient-to-b from-[#141414] to-blacklux border-t border-gold/10">
-  <div class="container mx-auto px-6 text-center">
-    <h2 class="font-orbitron text-4xl font-extrabold text-white mb-3">ALTIN DEĞERİNDE HİZMETLER</h2>
-    <p class="text-gray-300 text-lg mb-12 max-w-3xl mx-auto">
-      Casino ve bahis projeleriniz için tamamen özelleştirilmiş SEO çözümleri. 
-      Her detay, kazandırmak için optimize edildi.
-    </p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="glass p-8 rounded-2xl text-left">
-        <div class="text-3xl mb-4">🔍</div>
-        <h3 class="text-xl font-bold text-white mb-2">Teknik SEO Denetimi</h3>
-        <p class="text-gray-300 text-sm">
-          Site altyapınızı ve indeksleme performansınızı analiz ederek maksimum hız, güvenlik ve görünürlük sağlar.
-        </p>
-      </div>
-      <div class="glass p-8 rounded-2xl text-left">
-        <div class="text-3xl mb-4">🧠</div>
-        <h3 class="text-xl font-bold text-white mb-2">İçerik Stratejisi</h3>
-        <p class="text-gray-300 text-sm">
-          Casino, bahis ve oyun sektörüne özel içerik kümeleriyle kullanıcı niyetine tam uyumlu SEO içerikleri üretir.
-        </p>
-      </div>
-      <div class="glass p-8 rounded-2xl text-left">
-        <div class="text-3xl mb-4">🔗</div>
-        <h3 class="text-xl font-bold text-white mb-2">Backlink Optimizasyonu</h3>
-        <p class="text-gray-300 text-sm">
-          Güvenilir, tematik ve yüksek otoriteli backlink kaynaklarıyla organik büyümeyi hızlandırır.
-        </p>
-      </div>
-      <div class="glass p-8 rounded-2xl text-left">
-        <div class="text-3xl mb-4">📈</div>
-        <h3 class="text-xl font-bold text-white mb-2">Veri Odaklı SEO</h3>
-        <p class="text-gray-300 text-sm">
-          Gerçek zamanlı performans ölçümleriyle anahtar kelime, trafik ve dönüşüm oranlarını optimize eder.
-        </p>
-      </div>
-      <div class="glass p-8 rounded-2xl text-left">
-        <div class="text-3xl mb-4">💬</div>
-        <h3 class="text-xl font-bold text-white mb-2">Telegram SEO & Kampanyalar</h3>
-        <p class="text-gray-300 text-sm">
-          Telegram bahis topluluklarında görünürlük ve güvenilirlik artışı için organik büyüme teknikleri.
-        </p>
-      </div>
-      <div class="glass p-8 rounded-2xl text-left">
-        <div class="text-3xl mb-4">🛡️</div>
-        <h3 class="text-xl font-bold text-white mb-2">Gizlilik & Güven</h3>
-        <p class="text-gray-300 text-sm">
-          Tüm SEO süreçleri gizlilik anlaşması kapsamında yürütülür, markanızın kimliği korunur.
-        </p>
+  <!-- HİZMETLER -->
+  <section id="hizmetler" class="relative py-24 border-t border-gold/10">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="font-orbitron text-4xl font-extrabold text-white mb-3">ALTIN DEĞERİNDE HİZMETLER</h2>
+      <p class="text-gray-300 text-lg mb-12 max-w-3xl mx-auto">
+        Casino ve bahis projeleriniz için tamamen özelleştirilmiş SEO çözümleri. 
+        Her detay, kazandırmak için optimize edildi.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="glass p-8 rounded-2xl text-left">
+          <div class="text-3xl mb-4">🔍</div>
+          <h3 class="text-xl font-bold text-white mb-2">Teknik SEO Denetimi</h3>
+          <p class="text-gray-300 text-sm">Site altyapınızı analiz ederek maksimum hız ve görünürlük sağlar.</p>
+        </div>
+        <div class="glass p-8 rounded-2xl text-left">
+          <div class="text-3xl mb-4">🧠</div>
+          <h3 class="text-xl font-bold text-white mb-2">İçerik Stratejisi</h3>
+          <p class="text-gray-300 text-sm">Casino ve bahis sektörüne özel içerik kümeleri üretir.</p>
+        </div>
+        <div class="glass p-8 rounded-2xl text-left">
+          <div class="text-3xl mb-4">🔗</div>
+          <h3 class="text-xl font-bold text-white mb-2">Backlink Optimizasyonu</h3>
+          <p class="text-gray-300 text-sm">Güvenilir backlink kaynaklarıyla organik büyüme sağlar.</p>
+        </div>
+        <div class="glass p-8 rounded-2xl text-left">
+          <div class="text-3xl mb-4">📈</div>
+          <h3 class="text-xl font-bold text-white mb-2">Veri Odaklı SEO</h3>
+          <p class="text-gray-300 text-sm">Gerçek zamanlı ölçümlerle dönüşüm oranlarını optimize eder.</p>
+        </div>
+        <div class="glass p-8 rounded-2xl text-left">
+          <div class="text-3xl mb-4">💬</div>
+          <h3 class="text-xl font-bold text-white mb-2">Telegram SEO & Kampanyalar</h3>
+          <p class="text-gray-300 text-sm">Organik büyüme teknikleriyle topluluk etkileşimini artırır.</p>
+        </div>
+        <div class="glass p-8 rounded-2xl text-left">
+          <div class="text-3xl mb-4">🛡️</div>
+          <h3 class="text-xl font-bold text-white mb-2">Gizlilik & Güven</h3>
+          <p class="text-gray-300 text-sm">Tüm süreçler gizlilik anlaşması kapsamında yürütülür.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Markalar -->
-<section id="brands" class="relative py-20 overflow-hidden">
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(224,178,58,0.08)_0%,rgba(0,0,0,0.95)_100%)]"></div>
-  <div class="container mx-auto px-6 relative z-10 text-center">
-    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">🎰 İşbirliği Yaptığımız Global Markalar</h2>
-    <p class="text-gray-300 mb-10 max-w-2xl mx-auto">
-      Dünya çapında casino yazılım sağlayıcılarıyla entegre SEO çalışmaları — markanızı zirveye taşıyoruz.
-    </p>
-    <div class="grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-6">
-      <div class="glass p-6 rounded-xl text-gray-200 font-semibold hover:scale-105 transition">🎯 BetMaster</div>
-      <div class="glass p-6 rounded-xl text-gray-200 font-semibold hover:scale-105 transition">💎 CasinoNova</div>
-      <div class="glass p-6 rounded-xl text-gray-200 font-semibold hover:scale-105 transition">🔥 SpinGalaxy</div>
-      <div class="glass p-6 rounded-xl text-gray-200 font-semibold hover:scale-105 transition">🎲 RoyalPlay</div>
-      <div class="glass p-6 rounded-xl text-gray-200 font-semibold hover:scale-105 transition">⚡ JackAce</div>
-    </div>
-  </div>
-</section>
-
-
-<!-- CASE / BAŞARI HİKAYELERİ -->
-<section id="case" class="relative py-24 bg-gradient-to-b from-blacklux to-[#0b0b0b] border-t border-gold/10">
-  <div class="container mx-auto px-6 text-center">
-    <h2 class="font-orbitron text-4xl font-extrabold text-white mb-3">BAŞARI HİKAYELERİ</h2>
-    <p class="text-gray-300 text-lg mb-12 max-w-3xl mx-auto">
-      Her biri altın değerinde sonuçlar. Markalarımız için oluşturduğumuz stratejiler, gerçek kazanç ve organik büyüme sağladı.
-    </p>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      
-      <!-- 1 -->
-      <div class="glass p-8 rounded-2xl text-left transition-transform hover:scale-105">
-        <div class="text-3xl mb-4">🎯</div>
-        <h3 class="text-xl font-bold text-white mb-2">BetNova — 320% Organik Trafik Artışı</h3>
-        <p class="text-gray-300 text-sm">
-          4 ay içinde teknik SEO ve içerik kümeleriyle sıralamalarda %320 artış yakalandı.
-        </p>
-      </div>
-
-      <!-- 2 -->
-      <div class="glass p-8 rounded-2xl text-left transition-transform hover:scale-105">
-        <div class="text-3xl mb-4">🚀</div>
-        <h3 class="text-xl font-bold text-white mb-2">CasinoX — 50+ Anahtar Kelimede Zirve</h3>
-        <p class="text-gray-300 text-sm">
-          “Online casino bonus” gibi yüksek rekabetli kelimelerde 1. sayfa başarısı.
-        </p>
-      </div>
-
-      <!-- 3 -->
-      <div class="glass p-8 rounded-2xl text-left transition-transform hover:scale-105">
-        <div class="text-3xl mb-4">💰</div>
-        <h3 class="text-xl font-bold text-white mb-2">LuckySpin — %180 ROI</h3>
-        <p class="text-gray-300 text-sm">
-          Backlink ağları ve özel içerik stratejileriyle dönüşüm oranı iki katına çıkarıldı.
-        </p>
-      </div>
-
-      <!-- 4 -->
-      <div class="glass p-8 rounded-2xl text-left transition-transform hover:scale-105">
-        <div class="text-3xl mb-4">🔥</div>
-        <h3 class="text-xl font-bold text-white mb-2">BetSEO PRO — Uluslararası Görünürlük</h3>
-        <p class="text-gray-300 text-sm">
-          İngilizce, Türkçe ve İspanyolca dilinde çoklu domain optimizasyonu ile 3 ülkede SERP başarısı.
-        </p>
-      </div>
-
-      <!-- 5 -->
-      <div class="glass p-8 rounded-2xl text-left transition-transform hover:scale-105">
-        <div class="text-3xl mb-4">🎲</div>
-        <h3 class="text-xl font-bold text-white mb-2">MegaBet — Telegram Büyümesi</h3>
-        <p class="text-gray-300 text-sm">
-          Telegram topluluğu SEO entegrasyonu ile 10K+ organik üye kazanımı sağlandı.
-        </p>
-      </div>
-
-      <!-- 6 -->
-      <div class="glass p-8 rounded-2xl text-left transition-transform hover:scale-105">
-        <div class="text-3xl mb-4">🌍</div>
-        <h3 class="text-xl font-bold text-white mb-2">CasinoWorld — Global Marka Etkisi</h3>
-        <p class="text-gray-300 text-sm">
-          Marka bilinirliği ve güven skorunda %200 artış. Avrupa pazarı hedefleri başarıyla tamamlandı.
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<!-- PAKETLER (Fiyatlar) -->
-<section id="fiyat" class="relative py-24 bg-gradient-to-b from-[#141414] to-blacklux border-t border-gold/10">
-  <div class="container mx-auto px-6 text-center">
-    <h2 class="font-orbitron text-4xl font-extrabold text-white mb-3">PAKETLER</h2>
-    <p class="text-gray-300 text-lg mb-12">Her seviyeye uygun stratejik SEO çözümleri. Şeffaf, ölçülebilir, altın standartta hizmet.</p>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="glass p-8 rounded-2xl">
-        <h3 class="text-2xl font-bold text-white mb-2">🚀 Başlangıç</h3>
-        <p class="text-gray-300 mb-4">Yeni markalar ve küçük ölçekli siteler için.</p>
-        <ul class="text-sm text-gray-300 mb-6 space-y-1">
-          <li>• 10 hedef kelime</li>
-          <li>• 20 içerik optimizasyonu</li>
-          <li>• Teknik SEO denetimi</li>
-          <li>• Aylık rapor</li>
-        </ul>
-        <div class="text-gold font-bold text-xl mb-4">₺7.500 / ay</div>
-        <a href="#iletisim" class="btn-gold px-5 py-2 rounded-full inline-block">Teklif Al</a>
-      </div>
-      <div class="glass p-8 rounded-2xl border border-gold shadow-lg scale-105">
-        <h3 class="text-2xl font-bold text-white mb-2">💎 Profesyonel</h3>
-        <p class="text-gray-300 mb-4">Orta-büyük ölçekli casino & bahis markaları için.</p>
-        <ul class="text-sm text-gray-300 mb-6 space-y-1">
-          <li>• 25 hedef kelime</li>
-          <li>• 50 içerik optimizasyonu</li>
-          <li>• Backlink stratejisi</li>
-          <li>• Telegram SEO kampanyası</li>
-          <li>• Haftalık analiz raporu</li>
-        </ul>
-        <div class="text-gold font-bold text-xl mb-4">₺15.000 / ay</div>
-        <a href="#iletisim" class="btn-gold px-5 py-2 rounded-full inline-block">Teklif Al</a>
-      </div>
-      <div class="glass p-8 rounded-2xl">
-        <h3 class="text-2xl font-bold text-white mb-2">👑 Galaxy Ultra</h3>
-        <p class="text-gray-300 mb-4">Premium, özel yönetilen SEO deneyimi.</p>
-        <ul class="text-sm text-gray-300 mb-6 space-y-1">
-          <li>• 50+ hedef kelime</li>
-          <li>• Özel içerik + backlink stratejisi</li>
-          <li>• Telegram & influencer SEO</li>
-          <li>• 7/24 destek</li>
-        </ul>
-        <div class="text-gold font-bold text-xl mb-4">₺29.000 / ay</div>
-        <a href="#iletisim" class="btn-gold px-5 py-2 rounded-full inline-block">Teklif Al</a>
+  <!-- MARKALAR -->
+  <section id="brands" class="relative py-20 overflow-hidden border-t border-gold/10">
+    <div class="container mx-auto px-6 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">🎰 İşbirliği Yaptığımız Global Markalar</h2>
+      <p class="text-gray-300 mb-10 max-w-2xl mx-auto">
+        Dünya çapında casino yazılım sağlayıcılarıyla entegre SEO çalışmaları.
+      </p>
+      <div class="grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-6">
+        <div class="glass p-6 rounded-xl text-gray-200 font-semibold hover:scale-105 transition">🎯 BetMaster</div>
+        <div class="glass p-6 rounded-xl text-gray-200 font-semibold hover:scale-105 transition">💎 CasinoNova</div>
+        <div class="glass p-6 rounded-xl text-gray-200 font-semibold hover:scale-105 transition">🔥 SpinGalaxy</div>
+        <div class="glass p-6 rounded-xl text-gray-200 font-semibold hover:scale-105 transition">🎲 RoyalPlay</div>
+        <div class="glass p-6 rounded-xl text-gray-200 font-semibold hover:scale-105 transition">⚡ JackAce</div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FAQ -->
-<section id="faq" class="relative py-24 bg-gradient-to-b from-blacklux to-[#141414] border-t border-gold/10">
-  <div class="container mx-auto px-6 text-center">
-    <h2 class="font-orbitron text-4xl font-extrabold text-white mb-8">SIK SORULAN SORULAR</h2>
-    <div class="max-w-3xl mx-auto text-left space-y-6">
-      <details class="glass p-4 rounded-lg">
-        <summary class="cursor-pointer font-semibold text-white">Casino ve bahis SEO’su yasal mı?</summary>
-        <p class="text-gray-300 mt-2">BETSEO GALAXI yalnızca yurtdışı odaklı, yasal çerçevede hizmet verir. Tüm süreç gizlilik ve güven prensipleriyle yürütülür.</p>
-      </details>
-      <details class="glass p-4 rounded-lg">
-        <summary class="cursor-pointer font-semibold text-white">Sonuçları ne kadar sürede görürüm?</summary>
-        <p class="text-gray-300 mt-2">Genellikle 3–8 hafta arasında ilk organik sıralama artışları görülür, tam etki 2–3 ayda ortaya çıkar.</p>
-      </details>
-      <details class="glass p-4 rounded-lg">
-        <summary class="cursor-pointer font-semibold text-white">Telegram SEO nedir?</summary>
-        <p class="text-gray-300 mt-2">Telegram SEO, bahis/casino gruplarındaki marka görünürlüğünü artırmak için özel algoritmik içerik yayılım stratejisidir.</p>
-      </details>
-      <details class="glass p-4 rounded-lg">
-        <summary class="cursor-pointer font-semibold text-white">Gizlilik politikası nasıl işler?</summary>
-        <p class="text-gray-300 mt-2">Tüm projeler NDA kapsamında yürütülür, hiçbir marka ismi veya veri 3. tarafla paylaşılmaz.</p>
-      </details>
+  <!-- BAŞARI HİKAYELERİ -->
+  <section id="case" class="relative py-24 border-t border-gold/10">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="font-orbitron text-4xl font-extrabold text-white mb-3">BAŞARI HİKAYELERİ</h2>
+      <p class="text-gray-300 text-lg mb-12 max-w-3xl mx-auto">
+        Altın değerinde sonuçlar. Gerçek kazanç ve organik büyüme örnekleri.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="glass p-8 rounded-2xl text-left hover:scale-105 transition">🎯 BetNova — %320 Trafik Artışı</div>
+        <div class="glass p-8 rounded-2xl text-left hover:scale-105 transition">🚀 CasinoX — 50+ Anahtar Kelimede Zirve</div>
+        <div class="glass p-8 rounded-2xl text-left hover:scale-105 transition">💰 LuckySpin — %180 ROI</div>
+        <div class="glass p-8 rounded-2xl text-left hover:scale-105 transition">🔥 BetSEO PRO — Uluslararası Görünürlük</div>
+        <div class="glass p-8 rounded-2xl text-left hover:scale-105 transition">🎲 MegaBet — Telegram Büyümesi</div>
+        <div class="glass p-8 rounded-2xl text-left hover:scale-105 transition">🌍 CasinoWorld — Global Marka Etkisi</div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- İLETİŞİM -->
-<section id="iletisim" class="relative py-24 bg-gradient-to-b from-[#141414] to-blacklux border-t border-gold/10">
-  <div class="container mx-auto px-6 text-center">
-    <h2 class="font-orbitron text-4xl font-extrabold text-white mb-3">İLETİŞİM</h2>
-    <p class="text-gray-300 mb-10">Projenizi birlikte büyütelim. Hızlı analiz ve özel teklif için formu doldurun.</p>
-    <form class="max-w-2xl mx-auto text-left glass p-8 rounded-2xl space-y-4">
-      <input type="text" placeholder="Adınız" class="w-full px-4 py-3 rounded-lg bg-black/60 text-gray-200 border border-gold/10 focus:border-gold outline-none">
-      <input type="email" placeholder="E-posta adresiniz" class="w-full px-4 py-3 rounded-lg bg-black/60 text-gray-200 border border-gold/10 focus:border-gold outline-none">
-      <textarea rows="4" placeholder="Projeniz hakkında..." class="w-full px-4 py-3 rounded-lg bg-black/60 text-gray-200 border border-gold/10 focus:border-gold outline-none"></textarea>
-      <button type="submit" class="btn-gold w-full py-3 rounded-lg text-lg">Gönder</button>
-    </form>
-  </div>
-</section>
+  <!-- PAKETLER -->
+  <section id="fiyat" class="relative py-24 overflow-hidden border-t border-gold/10">
+    <div class="container mx-auto px-6 relative z-10 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">💎 Premium SEO Paketleri</h2>
+      <p class="text-gray-300 mb-12 max-w-2xl mx-auto">
+        Her bütçeye uygun, maksimum performans sağlayan altın oranlı SEO paketleri.
+      </p>
 
-<!-- FOOTER -->
-<footer class="py-8 border-t border-gold/10 bg-blacklux text-center text-gray-400 text-sm">
-  <div class="container mx-auto px-6">
-    <p class="mb-2 text-gray-500">© 2025 BETSEO GALAXI — Premium Casino & Bahis SEO Ajansı</p>
-    <div class="flex justify-center gap-4 text-gold text-lg">
-      <a href="#"><i class="fab fa-telegram"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="glass rounded-2xl p-8 hover:scale-105 transition transform">
+          <h3 class="text-2xl font-semibold mb-3 text-gold">🚀 Başlangıç</h3>
+          <ul class="text-gray-400 text-sm space-y-2 mb-6">
+            <li>✔ Teknik SEO kurulumu</li>
+            <li>✔ 10 içerik optimizasyonu</li>
+            <li>✔ 5 backlink</li>
+            <li>✔ Haftalık rapor</li>
+          </ul>
+          <div class="text-3xl font-bold text-gold mb-4">₺3.500</div>
+          <a href="#iletisim" class="btn-gold px-6 py-2 rounded-full inline-block">Paket Seç</a>
+        </div>
+
+        <div class="glass rounded-2xl p-8 border-2 border-gold shadow-lg hover:scale-105 transition transform">
+          <h3 class="text-2xl font-semibold mb-3 text-gold2">💼 Profesyonel</h3>
+          <ul class="text-gray-400 text-sm space-y-2 mb-6">
+            <li>✔ Gelişmiş teknik SEO</li>
+            <li>✔ 25 içerik üretimi</li>
+            <li>✔ 15 backlink</li>
+            <li>✔ Telegram kampanya desteği</li>
+          </ul>
+          <div class="text-3xl font-bold text-gold mb-4">₺7.500</div>
+          <a href="#iletisim" class="btn-gold px-6 py-2 rounded-full inline-block">Paket Seç</a>
+        </div>
+
+        <div class="glass rounded-2xl p-8 hover:scale-105 transition transform">
+          <h3 class="text-2xl font-semibold mb-3 text-gold">👑 Kurumsal</h3>
+          <ul class="text-gray-400 text-sm space-y-2 mb-6">
+            <li>✔ Tüm teknik SEO + özel raporlama</li>
+            <li>✔ 50+ içerik & premium backlink</li>
+            <li>✔ 7/24 analitik destek</li>
+          </ul>
+          <div class="text-3xl font-bold text-gold mb-4">₺15.000</div>
+          <a href="#iletisim" class="btn-gold px-6 py-2 rounded-full inline-block">Paket Seç</a>
+        </div>
+      </div>
     </div>
-  </div>
-</footer>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="relative py-24 border-t border-gold/10">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="font-orbitron text-4xl font-extrabold text-white mb-8">SIK SORULAN SORULAR</h2>
+      <div class="max-w-3xl mx-auto text-left space-y-6">
+        <details class="glass p-4 rounded-lg">
+          <summary class="cursor-pointer font-semibold text-white">Casino SEO’su yasal mı?</summary>
+          <p class="text-gray-300 mt-2">Yalnızca yasal yurtdışı odaklı projeler için çalışıyoruz.</p>
+        </details>
+        <details class="glass p-4 rounded-lg">
+          <summary class="cursor-pointer font-semibold text-white">Sonuçları ne kadar sürede görürüm?</summary>
+          <p class="text-gray-300 mt-2">Genellikle 3–8 hafta arasında ilk organik sıralama artışları görülür.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- İLETİŞİM -->
+  <section id="iletisim" class="relative py-24 border-t border-gold/10">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="font-orbitron text-4xl font-extrabold text-white mb-3">İLETİŞİM</h2>
+      <form class="max-w-2xl mx-auto text-left glass p-8 rounded-2xl space-y-4">
+        <input type="text" placeholder="Adınız" class="w-full px-4 py-3 rounded-lg bg-black/60 text-gray-200 border border-gold/10 focus:border-gold outline-none">
+        <input type="email" placeholder="E-posta adresiniz" class="w-full px-4 py-3 rounded-lg bg-black/60 text-gray-200 border border-gold/10 focus:border-gold outline-none">
+        <textarea rows="4" placeholder="Projeniz hakkında..." class="w-full px-4 py-3 rounded-lg bg-black/60 text-gray-200 border border-gold/10 focus:border-gold outline-none"></textarea>
+        <button type="submit" class="btn-gold w-full py-3 rounded-lg text-lg">Gönder</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-8 border-t border-gold/10 text-center text-gray-400 text-sm">
+    <div class="container mx-auto px-6">
+      <p class="mb-2 text-gray-500">© 2025 BETSEO GALAXI — Premium Casino & Bahis SEO Ajansı</p>
+      <div class="flex justify-center gap-4 text-gold text-lg">
+        <a href="#"><i class="fab fa-telegram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
