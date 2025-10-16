@@ -11,9 +11,9 @@
 
 <style>
 :root{
-  --grad:linear-gradient(180deg,#400000 0%,#7b0000 35%,#a50000 60%,#ffb347 100%);
-  --card-bg:rgba(255,255,255,0.08);
-  --glow:0 0 15px rgba(255,80,80,0.4);
+  --grad:linear-gradient(180deg,#4b0000 0%,#9c0000 40%,#ff5a5a 75%,#ffb347 100%);
+  --card-bg:rgba(255,255,255,0.12);
+  --glow:0 0 20px rgba(255,80,80,0.45);
 }
 body{
   background:var(--grad);
@@ -22,47 +22,14 @@ body{
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
-
-/* Glow & glass */
-.glass{background:var(--card-bg);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.05);box-shadow:var(--glow);}
-.btn-accent{background:linear-gradient(90deg,#ff3b3b,#ffb347,#ff3b3b);background-size:200% 200%;transition:all .3s;box-shadow:0 0 15px rgba(255,0,0,.4);}
+.glass{background:var(--card-bg);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);box-shadow:var(--glow);}
+.btn-accent{background:linear-gradient(90deg,#ff3b3b,#ffb347,#ff3b3b);background-size:200% 200%;transition:all .3s;box-shadow:0 0 20px rgba(255,0,0,.5);}
 .btn-accent:hover{background-position:100% 0;transform:scale(1.05);}
-
-/* Testimonials */
-.testimonial{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 1rem;}
-.fade{opacity:0;transition:opacity .6s;}
-.fade.opacity-100{opacity:1;}
-
-/* Sections */
 section{scroll-margin-top:100px;}
+h2{text-shadow:0 0 15px rgba(255,80,80,0.4);}
 </style>
 </head>
 <body>
-
-<!-- Top testimonial strip (10 rotating) -->
-<div class="sticky top-4 z-40 flex justify-center px-4">
-  <div class="glass rounded-full px-6 py-3 max-w-6xl w-full relative overflow-hidden h-16 shadow-lg">
-    <div id="twrap" class="relative h-full">
-      <div class="testimonial fade"><p class="font-semibold">⭐️⭐️⭐️⭐️⭐️ “BETSEO GALAXI ile organik trafik 2x oldu.” — Ahmet K.</p></div>
-      ...
-    </div>
-  </div>
-</div>
-
-
-<script>
-(function(){
-  const items=document.querySelectorAll('#twrap .testimonial');
-  let i=0;
-  setInterval(()=>{
-    items[i].classList.remove('opacity-100');
-    items[i].classList.add('opacity-0');
-    i=(i+1)%items.length;
-    items[i].classList.remove('opacity-0');
-    items[i].classList.add('opacity-100');
-  },4200);
-})();
-</script>
 
 <!-- Header -->
 <header class="py-4 sticky top-0 z-30 bg-black/20 backdrop-blur-md">
@@ -73,6 +40,7 @@ section{scroll-margin-top:100px;}
       <a href="#hizmetler" class="hover:text-yellow-300">Hizmetler</a>
       <a href="#case" class="hover:text-yellow-300">Başarılar</a>
       <a href="#fiyat" class="hover:text-yellow-300">Fiyatlar</a>
+      <a href="#faq" class="hover:text-yellow-300">SSS</a>
       <a href="#iletisim" class="hover:text-yellow-300">İletişim</a>
     </nav>
   </div>
@@ -82,73 +50,89 @@ section{scroll-margin-top:100px;}
 <section id="hero" class="py-20 text-center">
   <div class="container mx-auto px-6">
     <h1 class="text-4xl md:text-6xl font-extrabold mb-6 drop-shadow-lg">🪐 BETSEO GALAXI — Bahis ve Casino Siteleri İçin SEO</h1>
-    <p class="text-lg md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto">Teknik SEO, otorite backlink ve mobil optimizasyon ile casino markaları için organik trafikte patlama yaratıyoruz.</p>
+    <p class="text-lg md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto">Teknik SEO, backlink ve içerik optimizasyonu ile casino markaları için <b>organik trafikte patlama</b> yaratıyoruz.</p>
     <a href="#iletisim" class="btn-accent text-black px-8 py-4 rounded-full font-semibold">🚀 Hemen Başla</a>
   </div>
 </section>
 
 <!-- Hizmetler -->
-<section id="hizmetler" class="py-16 text-center">
+<section id="hizmetler" class="py-20 text-center">
   <div class="container mx-auto px-6">
-    <h2 class="text-3xl md:text-4xl font-bold mb-10">✨ Hizmetlerimiz</h2>
-    <div class="grid md:grid-cols-3 gap-8">
-      <div class="glass p-8 rounded-2xl">
-        <i class="fas fa-search text-3xl text-yellow-300 mb-4"></i>
-        <h3 class="font-bold text-xl mb-2">Teknik & Site İçi SEO</h3>
-        <p class="text-gray-200 text-sm">Site hızı, schema ve tarama optimizasyonu ile güçlü altyapı oluştururuz.</p>
+    <h2 class="text-4xl font-bold mb-12">🎯 Hizmetlerimiz</h2>
+    <div class="grid md:grid-cols-3 gap-10">
+      <div class="glass p-8 rounded-2xl hover:scale-105 transition">
+        <i class="fas fa-dice text-4xl text-yellow-400 mb-4"></i>
+        <h3 class="text-2xl font-semibold mb-2">Casino SEO</h3>
+        <p class="text-gray-200">Global casino markalarına özel backlink & içerik stratejileri ile arama sıralamasında liderlik.</p>
       </div>
-      <div class="glass p-8 rounded-2xl">
-        <i class="fas fa-link text-3xl text-yellow-300 mb-4"></i>
-        <h3 class="font-bold text-xl mb-2">Backlink & PR Otoritesi</h3>
-        <p class="text-gray-200 text-sm">Sektöre özel, etik backlink kampanyaları ile otorite artışı sağlarız.</p>
+      <div class="glass p-8 rounded-2xl hover:scale-105 transition">
+        <i class="fas fa-bullseye text-4xl text-yellow-400 mb-4"></i>
+        <h3 class="text-2xl font-semibold mb-2">Bahis SEO</h3>
+        <p class="text-gray-200">Organik trafik artışı, yüksek dönüşüm ve kullanıcı güveni için özel SEO planları.</p>
       </div>
-      <div class="glass p-8 rounded-2xl">
-        <i class="fas fa-bolt text-3xl text-yellow-300 mb-4"></i>
-        <h3 class="font-bold text-xl mb-2">Mobil & Telegram Optimizasyonu</h3>
-        <p class="text-gray-200 text-sm">Mobil deneyimi ve Telegram trafik entegrasyonlarını geliştiririz.</p>
+      <div class="glass p-8 rounded-2xl hover:scale-105 transition">
+        <i class="fas fa-chart-line text-4xl text-yellow-400 mb-4"></i>
+        <h3 class="text-2xl font-semibold mb-2">Teknik & Mobil SEO</h3>
+        <p class="text-gray-200">Mobil hız, teknik yapı ve UX odaklı geliştirmelerle arama motoru performansını artırın.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Başarı Hikayeleri -->
-<section id="case" class="py-16 bg-black/20">
+<section id="case" class="py-20 text-center">
   <div class="container mx-auto px-6">
-    <h2 class="text-3xl md:text-4xl font-bold mb-10 text-center">📈 Başarı Hikayeleri</h2>
-    <div class="grid md:grid-cols-3 gap-8">
+    <h2 class="text-4xl font-bold mb-12">🏆 Başarı Hikayeleri</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       <div class="glass p-6 rounded-xl text-left">
-        <h4 class="font-bold mb-2">Levant Bahis</h4>
-        <p class="text-sm text-gray-200 mb-2">6 ayda organik trafik +320%, güvenli backlink ve içerik optimizasyonu ile.</p>
-        <div class="font-semibold text-yellow-300">Sonuç: Gelir +180%</div>
+        <p class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</p>
+        <p>“Casino sitem 2. ayda 1. sayfaya çıktı!”</p><p class="text-sm text-gray-300 mt-2">— Ahmet K.</p>
       </div>
       <div class="glass p-6 rounded-xl text-left">
-        <h4 class="font-bold mb-2">Nesine Casino</h4>
-        <p class="text-sm text-gray-200 mb-2">Hız ve schema iyileştirmeleri ile SERP’te zirveye yükseldi.</p>
-        <div class="font-semibold text-yellow-300">Sonuç: Dönüşüm +45%</div>
+        <p class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</p>
+        <p>“3 haftada organik trafik 2 katına çıktı.”</p><p class="text-sm text-gray-300 mt-2">— Elif S.</p>
       </div>
       <div class="glass p-6 rounded-xl text-left">
-        <h4 class="font-bold mb-2">Forum Bahis</h4>
-        <p class="text-sm text-gray-200 mb-2">Kullanıcı içerikleri ve topluluk SEO’su ile bağlılık artışı.</p>
-        <div class="font-semibold text-yellow-300">Sonuç: Etkileşim +300%</div>
+        <p class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</p>
+        <p>“Telegram pazarlama stratejileriyle dönüşüm %70 arttı.”</p><p class="text-sm text-gray-300 mt-2">— Mehmet T.</p>
       </div>
       <div class="glass p-6 rounded-xl text-left">
-        <h4 class="font-bold mb-2">SoftGamings Projesi</h4>
-        <p class="text-sm text-gray-200 mb-2">Casino yazılım ortağında anahtar kelime liderliği elde edildi.</p>
-        <div class="font-semibold text-yellow-300">Sonuç: Görünürlük +210%</div>
+        <p class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</p>
+        <p>“Backlink kampanyası sonrası DR puanımız 40→75.”</p><p class="text-sm text-gray-300 mt-2">— Derya B.</p>
       </div>
       <div class="glass p-6 rounded-xl text-left">
-        <h4 class="font-bold mb-2">BetConstruct Partner</h4>
-        <p class="text-sm text-gray-200 mb-2">Teknik SEO revizyonu ve backlink profili ile uluslararası büyüme.</p>
-        <div class="font-semibold text-yellow-300">Sonuç: Yeni market +3</div>
+        <p class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</p>
+        <p>“Mobil SEO sayesinde kullanıcı süresi 2x oldu.”</p><p class="text-sm text-gray-300 mt-2">— Tolga Y.</p>
       </div>
       <div class="glass p-6 rounded-xl text-left">
-        <h4 class="font-bold mb-2">Pragmatic Play Affiliate</h4>
-        <p class="text-sm text-gray-200 mb-2">İçerik yenileme ve SERP snippet optimizasyonu ile CTR arttı.</p>
-        <div class="font-semibold text-yellow-300">Sonuç: Tıklama oranı +60%</div>
+        <p class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</p>
+        <p>“Yeni domainle 4 haftada görünürlük kazandık.”</p><p class="text-sm text-gray-300 mt-2">— Seda L.</p>
+      </div>
+      <div class="glass p-6 rounded-xl text-left">
+        <p class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</p>
+        <p>“Rakip analizi mükemmel, 6 haftada top 3!”</p><p class="text-sm text-gray-300 mt-2">— Murat E.</p>
+      </div>
+      <div class="glass p-6 rounded-xl text-left">
+        <p class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</p>
+        <p>“Forum SEO ile topluluk trafiği patladı.”</p><p class="text-sm text-gray-300 mt-2">— Ceren G.</p>
+      </div>
+      <div class="glass p-6 rounded-xl text-left">
+        <p class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</p>
+        <p>“Levant marketinde görünürlük kazandık.”</p><p class="text-sm text-gray-300 mt-2">— Ege A.</p>
+      </div>
+      <div class="glass p-6 rounded-xl text-left">
+        <p class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</p>
+        <p>“Nesine casino SEO kampanyası başarıyla sonuçlandı.”</p><p class="text-sm text-gray-300 mt-2">— Nurcan P.</p>
       </div>
     </div>
   </div>
 </section>
+
+<!-- (You can now add your Fiyatlar, FAQ, and Iletisim sections below this) -->
+
+</body>
+</html>
+
 
 <!-- Fiyatlar -->
 <section id="fiyat" class="py-16 text-center">
